@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Entity
 @Data
 @Slf4j
-public class Userspost extends Model{
+public class UsersPost extends Model{
 	@Id
 	long id;
 	long userId;
@@ -20,5 +20,5 @@ public class Userspost extends Model{
 	
 	String posttext;
 	
-	long topicId;
+	long groupId;
 }

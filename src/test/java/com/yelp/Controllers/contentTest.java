@@ -1,38 +1,34 @@
-package com.yelp;
+package com.yelp.Controllers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
+import org.springframework.test.web.servlet.result.StatusResultMatchers;
 import com.example.controller.ContentUploadController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yelp.models.UsersPost;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(ContentUploadController.class)
 @SpringBootTest
-class YelpApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
+public class contentTest {
+	
 	@Autowired
 	MockMvc mockMvc;
 	
 	ObjectMapper mapper = new ObjectMapper();
 	
 	@Test
-	void shouldReturnOk() {
+	public void shouldReturnOk() {
 		UsersPost post = new UsersPost();
 		
 		try {
