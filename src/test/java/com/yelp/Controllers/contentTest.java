@@ -6,9 +6,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.StatusResultMatchers;
-import com.example.controller.ContentUploadController;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yelp.controller.ContentUploadController;
 import com.yelp.models.UsersPost;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
