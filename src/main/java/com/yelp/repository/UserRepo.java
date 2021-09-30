@@ -5,5 +5,5 @@ import com.yelp.models.User;
 
 public interface UserRepo extends CrudRepository<User, Long>{
 
-	User findByUsername(long userId);
+	User findByUsername(String username);
 }
