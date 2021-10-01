@@ -1,29 +1,42 @@
 package com.yelp.controller;
 
+import java.io.Serializable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 import com.yelp.repository.UserRepo;
+import com.yelp.service.UsersDetailServ;
+import com.sun.istack.NotNull;
 import com.yelp.models.User;
 
 @Slf4j
 @RestController
-@RequestMapping(path="/register", produces="application/json")
+@RequestMapping(path="/register")
 public class RegistrationController {
+	
+	@Autowired
 	private UserRepo userRepo;
 	
 	@Autowired
-	public RegistrationController(UserRepo userRepo) {
-		this.userRepo = userRepo;
-	}
+	private UsersDetailServ userDetailsServ;
 
-	@PostMapping()
-	public HttpStatus processRegistration(User user) {
+	@PostMapping(consumes = "application/json", produces="application/json")
+	public ResponseEntity<Object> processRegistration(@NotNull @RequestBody User user) {
 		log.info("User registration request received");
-		userRepo.save(user);
-		return HttpStatus.ACCEPTED;
+		try {
+			user = userDetailsServ.newUser(user);
+		}
+		catch(BadCredentialsException e) {
+			return ResponseEntity.badRequest().body("Username is already in use");
+		}
+		final var fUser = user;
+		return ResponseEntity.ok("" + user.getUserId());
 	}
 }

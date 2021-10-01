@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -35,13 +36,11 @@ public class Login {
 	@Autowired
 	JwtUtil jwtUtil;
 	
-	@PostMapping("/login")
+	@PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public	ResponseEntity<?> login(@RequestBody Auth authRequest) throws Exception{
 		log.info("Login for " + authRequest.getUsername() + authRequest.getPassword() + " has been received");
 		UserDetails user = userDetailsService.loadUserByUsername(authRequest.getUsername());
 		log.info(authRequest.getPassword() + user.getPassword());
-		if(authRequest.getPassword() == user.getPassword())
-			log.debug("then what");
 		try {
 			authManager.authenticate(
 				new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword(), Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")))
@@ -49,7 +48,7 @@ public class Login {
 		}
 		catch(BadCredentialsException e) {
 			e.printStackTrace();
-			throw new BadCredentialsException(e.getMessage(), e);
+			ResponseEntity.badRequest().body("Username or password is incorrect");
 			
 		}
 		AuthToken token = new AuthToken();

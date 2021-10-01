@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.Loader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,11 @@ public class User implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long userId;
+	
+	@NotBlank
 	private String password;
+	
+	@NotBlank
 	private String username;
 	private String street;
 	private String city;

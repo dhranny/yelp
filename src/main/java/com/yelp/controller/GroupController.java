@@ -22,7 +22,8 @@ public class GroupController {
 	@Autowired
 	GroupManager gManager;
 	
-	@PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> createGroup(@RequestBody Group group, Errors error){
 		String groupId = "" + gManager.newGroup(group);
 		

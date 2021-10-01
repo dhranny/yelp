@@ -8,6 +8,7 @@ import javax.persistence.Transient;
 import com.yelp.models.Group;
 import com.yelp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -72,5 +73,12 @@ public class UsersDetailServ implements UserDetailsService{
 		User user = (User)loadUserByUsername(userName);
 		System.out.println(user.getUserId() + " Check not null");
 		return user;
+	}
+	
+	public User newUser(UserDetails user) {
+		if(userRepo.findByUsername(user.getUsername()) != null)
+			throw new BadCredentialsException("Username is already in use");
+		System.out.println(user.getUsername());
+		return userRepo.save((User)user);
 	}
 }

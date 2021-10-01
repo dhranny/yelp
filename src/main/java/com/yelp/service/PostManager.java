@@ -1,5 +1,7 @@
 package com.yelp.service;
 
+import java.util.Set;
+
 import javax.persistence.Transient;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +37,9 @@ public class PostManager {
 
 	public void setUser(UsersPost post) {
 		post.setUser((User)userDetailsServ.loadPrincipalUser());
+	}
+	
+	public Set<UsersPost> getPosts(){
+		return (Set<UsersPost>)postRepo.findAll();
 	}
 }
