@@ -24,6 +24,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.yelp.repository.GroupRepo;
 
 import lombok.AccessLevel;
@@ -43,11 +48,7 @@ public class User implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long userId;
-	
-	@NotBlank
 	private String password;
-	
-	@NotBlank
 	private String username;
 	private String street;
 	private String city;
@@ -57,6 +58,7 @@ public class User implements UserDetails{
 	private String phoneNumber;
 	
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	Set<UsersPost> userPosts = new HashSet<UsersPost>();
 	
 	@ManyToMany(mappedBy = "groupMembers")
