@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +28,8 @@ public class RegistrationController {
 	@Autowired
 	private UsersDetailServ userDetailsServ;
 
-	@PostMapping(consumes = "application/json", produces="application/json")
-	public ResponseEntity<Object> processRegistration(@NotNull @RequestBody User user) {
+	@PostMapping
+	public ResponseEntity<Object> processRegistration(@RequestBody User user) {
 		log.info("User registration request received");
 		try {
 			user = userDetailsServ.newUser(user);

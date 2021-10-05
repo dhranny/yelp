@@ -1,5 +1,6 @@
 package com.yelp.service;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Transient;
@@ -39,7 +40,7 @@ public class PostManager {
 		post.setUser((User)userDetailsServ.loadPrincipalUser());
 	}
 	
-	public Set<UsersPost> getPosts(){
-		return (Set<UsersPost>)postRepo.findAll();
+	public Iterable<UsersPost> getPosts(){
+		return (Iterable<UsersPost>)postRepo.findAll();
 	}
 }
